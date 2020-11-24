@@ -2,9 +2,10 @@
 
 
 #include "Missile.h"
-#include "PaperSpriteComponent.h"
+#include "PaperFlipbook.h"
 #include "TimerManager.h"
 #include "PaperFlipbookComponent.h"
+#include "PaperSpriteComponent.h"
 
 // Sets default values
 AMissile::AMissile()
@@ -23,7 +24,6 @@ AMissile::AMissile()
 
 	MissileFlipbook = CreateDefaultSubobject<UPaperFlipbookComponent>(TEXT("MissileFlipbook"));
 	MissileFlipbook->AttachToComponent(MissileSprite, FAttachmentTransformRules::KeepRelativeTransform);
-
 	
 }
 
@@ -47,11 +47,27 @@ void AMissile::Explode()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Entra Explode"));
 	GetWorldTimerManager().ClearTimer(ExplodeTimerHandle);
-	OnExplode();
+	explosionar();
 }
 
-void AMissile::OnExplode_Implementation()
+/*void AMissile::OnExplode_Implementation()
 {
+	Destroy();
+}*/
+
+void AMissile::explosionar()
+{
+	// just in case
+	if (Flipbook)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Entra a explosionar"));
+		MissileFlipbook->SetFlipbook(Flipbook);
+		MissileFlipbook->Play();
+		MissileFlipbook->SetLooping(false);
+		//MissileFlipbook->OnFinishedPlaying.Add(&AMissile::FinishExplosion);
+		
+	}
+	UE_LOG(LogTemp, Warning, TEXT("Debe finalizar"));
 	Destroy();
 }
 

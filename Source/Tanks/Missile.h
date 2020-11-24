@@ -29,9 +29,11 @@ public:
     void Explode();
 
     // En caso de no existir OnExplode, llamara al OnExplode_Implementation
-    UFUNCTION(BlueprintNativeEvent, Category = "Projectile")
+    /*UFUNCTION(BlueprintNativeEvent, Category = "Projectile")
     void OnExplode();
-    virtual void OnExplode_Implementation();
+    virtual void OnExplode_Implementation();*/
+
+    void explosionar();
 
 private:
     UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Projectile", meta = (AllowPrivateAccess = "true"))
@@ -39,5 +41,7 @@ private:
 
     UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Projectile", meta = (AllowPrivateAccess = "true"))
     class UPaperFlipbookComponent* MissileFlipbook;
+
+    class UPaperFlipbook* Flipbook;
     
 };
